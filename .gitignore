@@ -1,0 +1,8 @@
+# 忽略一些Git不需要上传的文件内容
+logs
+*.logs
+npm-debug.log*
+node_modules/
+.idea/
+.DS_Store
+build/
