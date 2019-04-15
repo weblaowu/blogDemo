@@ -13,4 +13,3 @@ use myblog;
 -- 排序 
 select * from users where username like '%li%' order by id desc;
 
-723966wuxie
