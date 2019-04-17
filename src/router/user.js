@@ -1,19 +1,26 @@
-const { loginCheck } = require('../model/loginCheck');
-const { SuccessMolel, ErrorMolel } = require('../model/resModel');
+const { login } = require('../model/loginCheck');
+const { SuccessModel, ErrorModel } = require('../model/resModel');
+
 const handleUserRouter = (req, res) => {
   const method = req.method;
   // 登录接口
-  if (method === "POST" && req.path === "/api/blog/users") {
-    const { username, password } = req.body;
-    console.log(username, password);
-    const result = loginCheck(username, password);
-    return result.then(data =>{
+  if (method === "GET" && req.path === "/api/user/login") {
+    const { username, password } = req.query;
+    const result = login(username, password);
+    return result.then(data => {
       if(data.username){
-        return new SuccessMolel()
+        // 设置 session 
+        req.session.username = data.username
+        req.session.realname = data.realname
+
+        console.log('session is ---', req.session)
+
+        return new SuccessModel()
       }
-      return new ErrorMolel("登录失败")
+      return new ErrorModel("登录失败")
     })
   }
+
 };
 
 module.exports = handleUserRouter;

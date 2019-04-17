@@ -15,14 +15,14 @@ class BaseModel {
   }
 }
 // 请求拿到数据 ，设置code为0
-class SuccessMolel extends BaseModel {
+class SuccessModel extends BaseModel {
   constructor(data, message) {
     super(data, message);
     this.code = 0;
   }
 }
 // 请求不成功 ，设置 code 为 -1
-class ErrorMolel extends BaseModel {
+class ErrorModel extends BaseModel {
   constructor(data, message) {
     super(data, message);
     this.code = -1;
@@ -30,6 +30,6 @@ class ErrorMolel extends BaseModel {
 }
 
 module.exports = {
-  SuccessMolel,
-  ErrorMolel
+  SuccessModel,
+  ErrorModel
 };

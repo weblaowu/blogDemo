@@ -5,7 +5,7 @@ const {
   updateBlog,
   delBlog
 } = require("../model/resblog");
-const { SuccessMolel, ErrorMolel } = require("../model/resModel");
+const { SuccessModel, ErrorModel } = require("../model/resModel");
 const handleBlogRouetr = (req, res) => {
   const method = req.method;
   const id = req.query.id;
@@ -17,7 +17,7 @@ const handleBlogRouetr = (req, res) => {
     const keyword = req.query.keyword || "";
     // 返回的是 promise 对象
     return getList(author, keyword).then(listData => {
-      return new SuccessMolel(listData);
+      return new SuccessModel(listData);
     });
   }
 
@@ -26,7 +26,7 @@ const handleBlogRouetr = (req, res) => {
     const result = getDetail(id);
     // promise 对象
     return result.then(data => {
-      return new SuccessMolel(data);
+      return new SuccessModel(data);
     });
   }
 
@@ -36,7 +36,7 @@ const handleBlogRouetr = (req, res) => {
     req.body.author = "wuxiess";
     const result = newBlog(req.body);
     return result.then(data => {
-      return new SuccessMolel(data);
+      return new SuccessModel(data);
     });
   }
 
@@ -45,9 +45,9 @@ const handleBlogRouetr = (req, res) => {
     const result = updateBlog(id, req.body);
     return result.then(val => {
       if (val) {
-        return new SuccessMolel();
+        return SuccessModel();
       }
-      return new ErrorMolel("更新博客失败!");
+      return new ErrorModel("更新博客失败!");
     });
   }
   // 删除一个博客
@@ -56,9 +56,9 @@ const handleBlogRouetr = (req, res) => {
     const result = delBlog(id, author);
     return result.then(val => {
       if(val){
-        return new SuccessMolel();
+        return new SuccessModel();
       }
-      return new ErrorMolel("删除博客失败!");
+      return new ErrorModel("删除博客失败!");
     })
   }
 };
