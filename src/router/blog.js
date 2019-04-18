@@ -8,8 +8,7 @@ const {
 const { SuccessModel, ErrorModel } = require("../model/resModel");
 const handleBlogRouetr = (req, res) => {
   const method = req.method;
-  const id = req.query.id;
-
+  const id = req.query.id ;
   // 获取博客列表
   if (method === "GET" && req.path === "/api/blog/list") {
     // 获取author keyword

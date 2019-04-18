@@ -3,12 +3,9 @@ const handleBlogRouter = require("./src/router/blog");
 // 内置模块，处理url后面的参数
 const querystring = require("querystring");
 
-// session 数据
-const SESSION_DATA = {};
-
 // 用于处理 post data
 const getPostData = req => {
-  const promise = new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     if (req.method !== "POST") {
       resolve({});
       return;
@@ -28,30 +25,35 @@ const getPostData = req => {
         resolve({});
         return;
       }
+      // JSON.parse 讲json字符串解析成JS对象
       resolve(JSON.parse(postData));
     });
   });
-  return promise;
 };
 
 // 设置 cookie 的过期时间
-const setCookieExpires = ()=> {
+const setCookieExpires = () => {
   const d = new Date();
-  d.setTime(d.getTime() + 24*3600)
-  console.log( d.toGMTString() )
-  return d.toGMTString() 
-}
+  d.setTime(d.getTime() + 24 * 3600);
+  console.log(d.toGMTString());
+  return d.toGMTString();
+};
 
-// 创建 server 的方法
+// 储存 session 数据
+const SESSION_DATA = {};
+
+// 返回的 server 回调
 serverHandle = (req, res) => {
-  // 设置请求头
+  // 设置响应头 数据类型是 json
   res.setHeader("Content-type", "application/json");
   // 获取请求路由路径
   const url = req.url;
+
   // 获取路由路径
   req.path = url.split("?")[0];
-  // 获取GET请求的参数
+  // 获取 GET 请求的参数 url?[key=value&key=value]
   req.query = querystring.parse(url.split("?")[1]);
+  console.log('req.query ---',req.query)
   // 解析 cookie
   req.cookie = {};
   const cookieStr = req.headers.cookie || "";
@@ -84,6 +86,7 @@ serverHandle = (req, res) => {
   req.session = SESSION_DATA[userId];
   // 处理 postData
   getPostData(req).then(postData => {
+    // 拿到 post请求传入的Data
     req.body = postData;
     /**  处理 blog 路由*/
     /**
@@ -98,8 +101,11 @@ serverHandle = (req, res) => {
     const blogResult = handleBlogRouter(req, res);
     if (blogResult) {
       blogResult.then(blogData => {
-        if(needSetCookie){
-          res.setHeader('Set-Cookie',`userid=${userId}; path=/; httpOnly; expires=${setCookieExpires()}`);
+        if (needSetCookie) {
+          res.setHeader(
+            "Set-Cookie",
+            `userid=${userId}; path=/; httpOnly; expires=${setCookieExpires()}`
+          );
         }
         res.end(
           // 返回JSON格式
@@ -112,8 +118,11 @@ serverHandle = (req, res) => {
     const userResult = handleUserRouter(req, res);
     if (userResult) {
       userResult.then(userData => {
-        if(needSetCookie){
-          res.setHeader('Set-Cookie',`userid=${userId}; path=/; httpOnly; expires=${setCookieExpires()}`);
+        if (needSetCookie) {
+          res.setHeader(
+            "Set-Cookie",
+            `userid=${userId}; path=/; httpOnly; expires=${setCookieExpires()}`
+          );
         }
         // 放回JSON格式
         res.end(JSON.stringify(userData));
