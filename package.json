@@ -14,5 +14,8 @@
     "cross-env": "^5.2.0",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.11"
+  },
+  "dependencies": {
+    "redis": "^2.8.0"
   }
 }

@@ -31,7 +31,7 @@ sesion的问题：目前session是JS变量，放在Node.js进程内存中
 
  Window 下 redis 安装：
   下载地址：https://github.com/MSOpenTech/redis/releases。
-  把 Redis-x64-3.2.100.zip 压缩包解压到C盘，将文件夹重新命名为redis
+  把 Redis-x64-3.2.100.zip 压缩包解压到C盘，将文件夹重新命名为red is
   打开cmd窗口，切换到c:/redis运行：redis-server.exe redis.windows.conf
   在重新开启一个cmd窗口，原来不要关闭，不然就无法访问服务端了。
   运行：redis-cli.exe -h 127.0.0.1 -p 6379
@@ -43,3 +43,9 @@ sesion的问题：目前session是JS变量，放在Node.js进程内存中
  用 redis 储存 seesion 
   1. node.js 连接redis 的 demo 
   2. 封装成工具函数，可供 API 使用
+
+
+ node.js 连接 redis 
+
+  1. 启动 redis 服务
+  2. 到项目中安装 redis; cnpm i redis -S 
