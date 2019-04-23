@@ -1,6 +1,6 @@
-# blogDemo
-# 记录问题
-session： 即 server 端存储用户信息，和 cookie 里面的uerId 对应，实现用户会话，实现登录信息存储  
+# blogDemo 项目笔记
+###session： 
+ 即 server 端存储用户信息，和 cookie 里面的uerId 对应，实现用户会话，实现登录信息存储  
 
 sesion的问题：目前session是JS变量，放在Node.js进程内存中
 
@@ -25,7 +25,7 @@ sesion的问题：目前session是JS变量，放在Node.js进程内存中
   
  为什么网站数据不适合用redis
   1. 操作频率不是太高
-  2. 断电不能丢失，必须保留
+  2. 断电不能丢失，必须保留  
   3. 数据量太大，内存成本太高 
 
 
@@ -44,8 +44,15 @@ sesion的问题：目前session是JS变量，放在Node.js进程内存中
   1. node.js 连接redis 的 demo 
   2. 封装成工具函数，可供 API 使用
 
-
+ 
  node.js 连接 redis 
 
   1. 启动 redis 服务
   2. 到项目中安装 redis; cnpm i redis -S 
+
+
+### express 
+  安装(使用脚手架 express-generator) 
+   npm install express-generator -g 
+   express express-test
+   npm install & npm start 
